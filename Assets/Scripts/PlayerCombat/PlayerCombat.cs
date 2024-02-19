@@ -1,16 +1,28 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerCombat : MonoBehaviour
 {
-    public float health = 100f; // Player's health
+    public float health; // Player's health
+    public float maxHealth;
+    public Image HealthBar;
+    public Text YouDied;
+
     public GameObject bulletPrefab; // Bullet prefab to shoot
     public Transform bulletSpawnPoint; // Where the bullet is spawned on the player
     public float bulletForce = 20f; // Force applied to the bullet for shooting
     public float attackRate = 0.5f; // Rate of fire
     private float lastAttackTime = 0f; // Time since last shot
 
+    private void Start()
+    {
+        maxHealth = health;
+    }
+
     void Update()
     {
+        HealthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+
         if (Input.GetButtonDown("Fire1") && Time.time - lastAttackTime >= attackRate)
         {
             //Shoot();
@@ -23,7 +35,7 @@ public class PlayerCombat : MonoBehaviour
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, Quaternion.identity);
         Rigidbody rb = bullet.GetComponent<Rigidbody>();
         rb.AddForce(bulletSpawnPoint.forward * bulletForce, ForceMode.VelocityChange);
-        Destroy(bullet, 2f); // Destroy the bullet after 2 seconds to clean up
+        Destroy(bullet);
     }
 
     public void TakeDamage(float amount)
@@ -38,8 +50,7 @@ public class PlayerCombat : MonoBehaviour
 
     private void Die()
     {
-        // Handle player death here (e.g., disable movement, show game over screen, etc.)
-        Debug.Log("Player Died!");
+        
     }
 
     private void OnTriggerEnter(Collider other)

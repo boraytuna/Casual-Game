@@ -31,12 +31,14 @@ public class AutomaticGunScript : MonoBehaviour
     {
         GameObject bullet = Instantiate(bulletPrefab, bulletSpawnPoint.position, bulletSpawnPoint.rotation);
         Rigidbody rb = bullet.AddComponent<Rigidbody>(); // Ensure this matches your setup
-        rb.useGravity = false;
         rb.AddForce(bulletSpawnPoint.forward * bulletForce, ForceMode.VelocityChange);
         audio.PlayOneShot(audio.clip);
 
         Bullet bulletScript = bullet.GetComponent<Bullet>();
-        if (bulletScript != null)
+        if (bulletScript == null)
+        {
+        }
+        else
         {
             bulletScript.damage = this.damage; // Correctly references the damage field
         }

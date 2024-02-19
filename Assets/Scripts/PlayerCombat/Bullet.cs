@@ -2,22 +2,27 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float damage = 20f; // Damage the bullet will deal
+    public float damage = 10f; // Adjust this value as needed
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
         // Check if the bullet collides with a zombie
-        if (collision.gameObject.CompareTag("Zombie"))
+        if (other.gameObject.CompareTag("Zombie"))
         {
-            // Try to get the ZombieCharacterControl script on the collided object
-            ZombieCharacterControl zombie = collision.gameObject.GetComponent<ZombieCharacterControl>();
+            // Get the ZombieCharacterControl script on the collided object
+            ZombieCharacterControl zombie = other.gameObject.GetComponent<ZombieCharacterControl>();
             if (zombie != null)
             {
                 // Call the TakeDamage method on the zombie
                 zombie.TakeDamage(damage);
             }
 
-            // Destroy the bullet after dealing damage
+            // Destroy the bullet after it hits something
+            Destroy(gameObject);
+        }
+        else
+        {
+            // Optionally destroy the bullet on hitting any object, not just zombies
             Destroy(gameObject);
         }
     }
