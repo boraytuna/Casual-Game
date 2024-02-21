@@ -13,12 +13,14 @@ public class ZombieCharacterControl : MonoBehaviour
     private Transform playerTransform;
     private float lastAttackTime = 0f;
     private PlayerMovement playerMovementScript; // Assuming the player movement script holds a reference to the current ground
+    private AudioSource audio;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         playerMovementScript = playerTransform.GetComponent<PlayerMovement>(); // Get the player's movement script to access currentGround
+        audio = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -28,6 +30,11 @@ public class ZombieCharacterControl : MonoBehaviour
         // Check if both the player and the zombie are on the same ground object
         if (IsPlayerOnSameGround())
         {
+
+            if (!audio.isPlaying)
+            {
+                audio.Play(); // Play the audio clip when on the same ground and not already playing
+            }
             float distance = Vector3.Distance(transform.position, playerTransform.position);
             if (distance <= attackRange && Time.time - lastAttackTime >= attackRate)
             {
@@ -66,9 +73,9 @@ public class ZombieCharacterControl : MonoBehaviour
         }
     }
 
-    public void TakeDamage(float amount)
+    public void TakeDamage(float damage)
     {
-        hitPoints -= amount;
+        hitPoints -= damage;
         if (hitPoints <= 0)
         {
             Die();
@@ -77,8 +84,8 @@ public class ZombieCharacterControl : MonoBehaviour
 
     void Die()
     {
-        animator.SetTrigger("Die");
-        // Disable zombie to stop it from moving and attacking
+        animator.SetTrigger("Dead");
+        audio.Stop();
         this.enabled = false;
         GetComponent<Collider>().enabled = false;
         Destroy(gameObject, 5f); // Wait for death animation before destroying
