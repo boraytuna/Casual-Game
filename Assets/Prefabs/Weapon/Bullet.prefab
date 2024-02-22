@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 10
+  hitSound: {fileID: 8300000, guid: 06612c3da31b84a0cbabce9e004d343a, type: 3}
 --- !u!54 &-6551654255491025565
 Rigidbody:
   m_ObjectHideFlags: 0

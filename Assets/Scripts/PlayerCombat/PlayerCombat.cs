@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -6,17 +7,22 @@ public class PlayerCombat : MonoBehaviour
     public float health; // Player's health
     public float maxHealth;
     public Image HealthBar;
-    public Text YouDied;
+    public TextMeshProUGUI youDiedText;
+    public Button respawnButton;
 
     public GameObject bulletPrefab; // Bullet prefab to shoot
     public Transform bulletSpawnPoint; // Where the bullet is spawned on the player
     public float bulletForce = 20f; // Force applied to the bullet for shooting
-    public float attackRate = 0.5f; // Rate of fire
-    private float lastAttackTime = 0f; // Time since last shot
+    public float attackRate = 2f; // Rate of fire
+    private float lastAttackTime = 3f; // Time since last shot
 
     private void Start()
     {
         maxHealth = health;
+        if (youDiedText != null)
+            youDiedText.enabled = false;
+        if (respawnButton != null)
+            respawnButton.gameObject.SetActive(false);
     }
 
     void Update()
@@ -25,7 +31,7 @@ public class PlayerCombat : MonoBehaviour
 
         if (Input.GetButtonDown("Fire1") && Time.time - lastAttackTime >= attackRate)
         {
-            //Shoot();
+            Shoot();
             lastAttackTime = Time.time;
         }
     }
@@ -44,13 +50,14 @@ public class PlayerCombat : MonoBehaviour
         if (health <= 0)
         {
             Die();
+            GetComponent<GameRespawn>().enabled = true;
         }
-        // Implement health UI update logic here if needed
     }
 
-    private void Die()
+    void Die()
     {
-        
+        Debug.Log("player died");
+        GetComponent<PlayerMovement>().enabled = false; // Disable player movement
     }
 
     private void OnTriggerEnter(Collider other)

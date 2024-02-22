@@ -7,70 +7,95 @@ public class ZombieCharacterControl : MonoBehaviour
     public float damage = 10f;
     public float attackRate = 1f;
     public float hitPoints = 50f;
-    public GameObject currentGround; // The current ground the zombie is on
 
+    public GameObject currentGround; 
     private Animator animator;
     private Transform playerTransform;
     private float lastAttackTime = 0f;
-    private PlayerMovement playerMovementScript; // Assuming the player movement script holds a reference to the current ground
-    private AudioSource audio;
+    private PlayerMovement playerMovementScript; 
+    private PlayerCombat playerCombatScript;
+    public AudioSource zombieAudioSource;
 
     void Awake()
     {
         animator = GetComponent<Animator>();
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         playerMovementScript = playerTransform.GetComponent<PlayerMovement>(); // Get the player's movement script to access currentGround
-        audio = GetComponent<AudioSource>();
+        zombieAudioSource = GetComponent<AudioSource>();
+        playerCombatScript = playerTransform.GetComponent<PlayerCombat>();
     }
 
     void Update()
     {
-        if (hitPoints <= 0) return;
+        if (hitPoints <= 0 || playerCombatScript.health <= 0)
+        {
+            zombieAudioSource.Stop();
+        }
+
+        float distance = Vector3.Distance(transform.position, playerTransform.position);
 
         // Check if both the player and the zombie are on the same ground object
         if (IsPlayerOnSameGround())
         {
-
-            if (!audio.isPlaying)
+            if (distance > attackRange)
             {
-                audio.Play(); // Play the audio clip when on the same ground and not already playing
-            }
-            float distance = Vector3.Distance(transform.position, playerTransform.position);
-            if (distance <= attackRange && Time.time - lastAttackTime >= attackRate)
-            {
-                AttackPlayer();
-                lastAttackTime = Time.time;
+                MoveTowardsPlayer();
+                animator.SetBool("isMoving", true);
             }
             else
             {
-                MoveTowardsPlayer();
+                animator.SetBool("isMoving", false);
+                if (Time.time - lastAttackTime >= attackRate)
+                {
+                    AttackPlayer();
+                }
             }
+        }
+        else
+        {
+            animator.SetBool("isMoving", false);
+        }
+
+        if (IsPlayerOnSameGround() && !zombieAudioSource.isPlaying)
+        {
+            zombieAudioSource.Play();
         }
     }
 
     bool IsPlayerOnSameGround()
     {
-        // Check if the player's current ground matches the zombie's current ground
-        // This requires the playerMovementScript to have a public GameObject that represents the ground it's currently on
         return playerMovementScript.currentGround == this.currentGround;
     }
 
     void MoveTowardsPlayer()
     {
         Vector3 direction = (playerTransform.position - transform.position).normalized;
+        direction.y = 0; // This ensures we only get the direction in the XZ plane.
         transform.position += direction * moveSpeed * Time.deltaTime;
         transform.LookAt(new Vector3(playerTransform.position.x, transform.position.y, playerTransform.position.z));
+
         animator.SetFloat("MoveSpeed", moveSpeed);
+
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + Vector3.up, -Vector3.up, out hit))
+        {
+            float groundY = hit.point.y + 0.1f; // The 0.1f offset raises the zombie slightly above the ground to avoid clipping.
+            transform.position = new Vector3(transform.position.x, groundY, transform.position.z);
+        }
     }
 
     void AttackPlayer()
     {
-        animator.SetTrigger("Attack");
-        if (Time.time - lastAttackTime >= attackRate)
+        if (playerCombatScript.health > 0)
         {
-            playerTransform.GetComponent<PlayerCombat>().TakeDamage(damage);
-            lastAttackTime = Time.time;
+            animator.SetTrigger("Attack");
+            if (Time.time - lastAttackTime >= attackRate)
+            {
+                playerTransform.GetComponent<PlayerCombat>().TakeDamage(damage);
+                lastAttackTime = Time.time;
+            }
         }
+
     }
 
     public void TakeDamage(float damage)
@@ -85,7 +110,7 @@ public class ZombieCharacterControl : MonoBehaviour
     void Die()
     {
         animator.SetTrigger("Dead");
-        audio.Stop();
+        zombieAudioSource.Stop();
         this.enabled = false;
         GetComponent<Collider>().enabled = false;
         Destroy(gameObject, 5f); // Wait for death animation before destroying
