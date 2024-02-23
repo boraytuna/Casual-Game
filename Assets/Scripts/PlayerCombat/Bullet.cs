@@ -7,6 +7,12 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.CompareTag("Collectible"))
+        {
+            return;
+
+        }
+      
         // Play the hit sound for any collision
         if (hitSound != null)
         {

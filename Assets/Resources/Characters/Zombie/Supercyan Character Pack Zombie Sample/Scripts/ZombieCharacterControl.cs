@@ -15,6 +15,8 @@ public class ZombieCharacterControl : MonoBehaviour
     private PlayerMovement playerMovementScript; 
     private PlayerCombat playerCombatScript;
     public AudioSource zombieAudioSource;
+    public GameObject starPrefab;
+
 
     void Awake()
     {
@@ -113,9 +115,28 @@ public class ZombieCharacterControl : MonoBehaviour
         zombieAudioSource.Stop();
         this.enabled = false;
         GetComponent<Collider>().enabled = false;
-        Destroy(gameObject, 5f); // Wait for death animation before destroying
-    }
+        Destroy(gameObject, 5f);
 
+        if (starPrefab != null)
+        {
+            Vector3 starSpawnPosition = transform.position + new Vector3(0, 1f, 0); // Spawn the star 1 unit above the ground
+            GameObject starInstance = Instantiate(starPrefab, starSpawnPosition, Quaternion.identity);
+            Quaternion starSpawnRotation = Quaternion.Euler(90f, 0f, 0f);
+
+            // Access the AnimationScript on the star and set properties
+            AnimationScript starAnimationScript = starInstance.GetComponent<AnimationScript>();
+            if (starAnimationScript != null)
+            {
+                starAnimationScript.isAnimated = true;
+                starAnimationScript.isRotating = true;
+                starAnimationScript.isFloating = false;
+                starAnimationScript.isScaling = false;
+                starAnimationScript.rotationAngle = new Vector3(1, 1, 1);
+                starAnimationScript.rotationSpeed = 100f;
+            }
+
+        }
+    }
     void OnTriggerEnter(Collider other)
     {
         // This method is left empty if not used, ensure colliders are set correctly if needed

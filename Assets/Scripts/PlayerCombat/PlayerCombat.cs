@@ -15,6 +15,12 @@ public class PlayerCombat : MonoBehaviour
     public float bulletForce = 20f; // Force applied to the bullet for shooting
     public float attackRate = 2f; // Rate of fire
     private float lastAttackTime = 3f; // Time since last shot
+    public AudioSource playerGettingHurt;
+
+    void Awake()
+    {
+        playerGettingHurt = GetComponent<AudioSource>();    
+    }
 
     private void Start()
     {
@@ -47,6 +53,7 @@ public class PlayerCombat : MonoBehaviour
     public void TakeDamage(float amount)
     {
         health -= amount;
+        playerGettingHurt.Play();
         if (health <= 0)
         {
             Die();
