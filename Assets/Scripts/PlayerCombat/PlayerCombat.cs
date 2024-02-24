@@ -33,7 +33,7 @@ public class PlayerCombat : MonoBehaviour
 
     void Update()
     {
-        HealthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
+        // HealthBar.fillAmount = Mathf.Clamp(health / maxHealth, 0, 1);
 
         if (Input.GetButtonDown("Fire1") && Time.time - lastAttackTime >= attackRate)
         {
@@ -71,8 +71,7 @@ public class PlayerCombat : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Zombie"))
         {
-            // Assuming the zombie deals a fixed amount of damage
-            TakeDamage(10f); // Example damage amount
+            TakeDamage(10f);
         }
     }
 }

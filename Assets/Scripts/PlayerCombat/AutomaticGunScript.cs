@@ -10,7 +10,7 @@ public class AutomaticGunScript : MonoBehaviour
 
     private float nextTimeToFire = 0f;
     private AudioSource audioSource;
-
+    public static bool GameisPaused = false;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -18,7 +18,7 @@ public class AutomaticGunScript : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire)
+        if (Input.GetButton("Fire1") && Time.time >= nextTimeToFire && !pauseMenu.GameisPaused)
         {
             nextTimeToFire = Time.time + 1f / fireRate;
             Shoot();
