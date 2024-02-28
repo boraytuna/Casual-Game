@@ -14,7 +14,7 @@ public class LevelMenu : MonoBehaviour
     }
 
     public void onLevel3(){
-        SceneManager.LoadScene(2);
+        SceneManager.LoadScene(4);
     }
 
     public void onLevel4(){
