@@ -54,6 +54,7 @@ public class PlayerCombat : MonoBehaviour
     {
         health -= amount;
         playerGettingHurt.Play();
+        HealthBar.fillAmount = health / 100f;
         if (health <= 0)
         {
             Die();
