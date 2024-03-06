@@ -11,13 +11,14 @@ public class GameRespawn : MonoBehaviour
     public Button respawnButton;
     public PlayerCombat playerCombat; // Reference to the player's combat script
     public AutomaticGunScript gunScript; // Reference to the AutomaticGunScript
-
+    public LevelTimer levelTimer;
     private bool isPlayerDead = false;
 
     void Start()
     {
         playerCombat = FindObjectOfType<PlayerCombat>(); // Find the PlayerCombat script in the scene
         gunScript = FindObjectOfType<AutomaticGunScript>(); // Find the AutomaticGunScript in the scene
+        levelTimer = FindObjectOfType<LevelTimer>();
     }
 
     void Update()
@@ -36,20 +37,22 @@ public class GameRespawn : MonoBehaviour
 
     private void PlayerDied()
     {
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+
         if (youDiedText != null)
         {
             youDiedText.gameObject.SetActive(true); // This ensures the GameObject is active
             youDiedText.enabled = true; // This ensures the component is active
         }
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
-
+        // Start coroutine to show the respawn button after a delay
+        StartCoroutine(ShowRespawnButtonWithDelay(2)); // 2 seconds delay
+        
         // Disable the gun script to stop shooting
         if (gunScript != null)
             gunScript.enabled = false;
-
-        // Start coroutine to show the respawn button after a delay
-        StartCoroutine(ShowRespawnButtonWithDelay(2)); // 2 seconds delay
+        if (levelTimer != null)
+            levelTimer.enabled = false;
     }
 
     IEnumerator ShowRespawnButtonWithDelay(float delay)

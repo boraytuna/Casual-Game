@@ -14,7 +14,7 @@ public class ZombieCharacterControl : MonoBehaviour
     private float lastAttackTime = 0f;
     private PlayerMovement playerMovementScript; 
     private PlayerCombat playerCombatScript;
-    public AudioSource zombieAudioSource;
+    public AudioSource zombieAudioSource; 
     public GameObject starPrefab;
 
 

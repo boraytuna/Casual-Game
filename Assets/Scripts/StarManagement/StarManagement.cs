@@ -2,16 +2,16 @@ using UnityEngine;
 
 public class StarManagement : MonoBehaviour
 {
-    private AudioSource audioSource;
+    public AudioSource starAudioSource;
 
     private void Start()
     {
         // Get the AudioSource component
-        audioSource = GetComponent<AudioSource>();
+        starAudioSource = GetComponent<AudioSource>();
         // Start playing the music as soon as the star is instantiated
-        if (audioSource != null)
+        if (starAudioSource != null)
         {
-            audioSource.Play();
+            starAudioSource.Play();
         }
     }
 
@@ -26,11 +26,12 @@ public class StarManagement : MonoBehaviour
             }
 
             // Stop the music and destroy the star
-            if (audioSource != null)
+            if (starAudioSource != null)
             {
-                audioSource.Stop();
+                starAudioSource.Stop();
             }
             Destroy(gameObject);
+            
         }
     }
 }

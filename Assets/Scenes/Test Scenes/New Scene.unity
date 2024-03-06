@@ -521,6 +521,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6731772314933201588}
   m_CullTransparentMesh: 1
+--- !u!114 &627368081913807884
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2986369958556378062}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6842c6a1fb312477c9ebd84a5dd2e530, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Theme
+    clip: {fileID: 8300000, guid: 17f7070ef82e942a686f516b73a64915, type: 3}
+    volume: 0.593
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
 --- !u!222 &648605303080613211
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1470,6 +1489,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &2986369958556378062
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5243593886132628924}
+  - component: {fileID: 627368081913807884}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!222 &3073689307790163567
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1534,6 +1570,7 @@ MonoBehaviour:
   respawnButton: {fileID: 7042636841552511518}
   playerCombat: {fileID: 3998357316857142467}
   gunScript: {fileID: 931520605544734517}
+  levelTimer: {fileID: 0}
 --- !u!23 &3291720417850606337
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -1718,8 +1755,6 @@ MonoBehaviour:
   health: 100
   maxHealth: 100
   HealthBar: {fileID: 5418094211815097124}
-  youDiedText: {fileID: 9094220236011380168}
-  respawnButton: {fileID: 7042636841552511518}
   bulletPrefab: {fileID: 4867951207167598059, guid: 5525c7649769a44c6b797f9caeebb8aa, type: 3}
   bulletSpawnPoint: {fileID: 4116814586430645597}
   bulletForce: 20
@@ -2241,6 +2276,21 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8869673286598500341}
   m_CullTransparentMesh: 1
+--- !u!4 &5243593886132628924
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2986369958556378062}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5270066257500967949
 MonoBehaviour:
   m_ObjectHideFlags: 0

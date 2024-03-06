@@ -7,9 +7,6 @@ public class PlayerCombat : MonoBehaviour
     public float health; // Player's health
     public float maxHealth;
     public Image HealthBar;
-    public TextMeshProUGUI youDiedText;
-    public Button respawnButton;
-
     public GameObject bulletPrefab; // Bullet prefab to shoot
     public Transform bulletSpawnPoint; // Where the bullet is spawned on the player
     public float bulletForce = 20f; // Force applied to the bullet for shooting
@@ -25,10 +22,7 @@ public class PlayerCombat : MonoBehaviour
     private void Start()
     {
         maxHealth = health;
-        if (youDiedText != null)
-            youDiedText.enabled = false;
-        if (respawnButton != null)
-            respawnButton.gameObject.SetActive(false);
+
     }
 
     void Update()
