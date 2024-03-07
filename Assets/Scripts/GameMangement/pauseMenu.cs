@@ -3,11 +3,9 @@ using UnityEngine.SceneManagement;
 
 public class pauseMenu : MonoBehaviour
 {
-    public static  bool GameisPaused = false;
-    public GameObject  pauseMenuUI;
+    public static bool GameisPaused = false;
+    public GameObject pauseMenuUI;
     public AutomaticGunScript automaticGunScript; 
-    public StarManagement starManager;
-    public ZombieCharacterControl zombieController;
     public AudioSource[] allAudioSources;
 
     void Start()
@@ -17,14 +15,17 @@ public class pauseMenu : MonoBehaviour
 
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
-            if(GameisPaused)
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GameisPaused)
             {
                 Resume();    
-            }else
+            }
+            else
             {
                 Pause();
             }
+        }
     }
      
     void Pause()
@@ -32,56 +33,49 @@ public class pauseMenu : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         GameisPaused = true;
-        foreach (AudioSource audioSource in allAudioSources)
-        {
-            audioSource.Pause();
-        }
-        if (automaticGunScript != null)
-        {
-            automaticGunScript.enabled = false; // Disable shooting
-        }
-
-        if (starManager != null && starManager.starAudioSource != null)
-        {
-            starManager.starAudioSource.Pause();
-        }
-
-        if (zombieController != null && zombieController.zombieAudioSource != null)
-        {
-            zombieController.zombieAudioSource.Pause();
-        }
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
 
+        // Pause all audio sources
+        PauseAllAudioSources(); 
     }
 
-    public void Resume()
+    void Resume()
     {
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         GameisPaused = false;
-        foreach (AudioSource audioSource in allAudioSources)
-        {
-            audioSource.UnPause();
-        }
-        if (automaticGunScript != null)
-        {
-            automaticGunScript.enabled = true; // Enable shooting
-        }
-        if (starManager != null && starManager.starAudioSource != null)
-        {
-            starManager.starAudioSource.UnPause();
-        }
-
-        if (zombieController != null && zombieController.zombieAudioSource != null)
-        {
-            zombieController.zombieAudioSource.UnPause();
-        }
-
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+
+        // Resume all audio sources
+        ResumeAllAudioSources();
+    }
+
+    // Method to pause all audio sources
+    void PauseAllAudioSources()
+    {
+        foreach (AudioSource audioSource in allAudioSources)
+        {
+            if (audioSource != null && audioSource.gameObject != null && audioSource.isPlaying)
+            {
+                audioSource.Pause();
+            }
+        }
+    }
+
+    // Method to resume all audio sources
+    void ResumeAllAudioSources()
+    {
+        foreach (AudioSource audioSource in allAudioSources)
+        {
+            if (audioSource != null && audioSource.gameObject != null && !audioSource.isPlaying)
+            {
+                audioSource.UnPause();
+            }
+        }
     }
 
     public void restartLevel()
@@ -93,8 +87,11 @@ public class pauseMenu : MonoBehaviour
         {
             automaticGunScript.enabled = true; // Enable shooting
         }
+        AudioManager.instance.Stop("StarSound");
+        AudioManager.instance.Resume("Theme");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
+
     public void LoadMenu()
     {
         pauseMenuUI.SetActive(false);

@@ -1,3 +1,45 @@
+// using UnityEngine;
+
+// public class StarManagement : MonoBehaviour
+// {
+//     public AudioSource starAudioSource;
+
+//     private void Start()
+//     {
+//         PlayStarSound();
+//     }
+
+//     private void OnTriggerEnter(Collider other)
+//     {
+//         if (other.CompareTag("Player")) // Assuming your player GameObject has the tag "Player"
+//         {
+//             PlayerStats playerStats = other.GetComponent<PlayerStats>();
+//             if (playerStats != null)
+//             {
+//                 playerStats.AddStarPoint();
+//             }
+
+//             // Stop the music and destroy the star
+//             if (starAudioSource != null)
+//             {
+//                 starAudioSource.Stop();
+//             }
+//             Destroy(gameObject);
+//         }
+//     }
+
+//     private void PlayStarSound()
+//     {
+//         if (starAudioSource != null)
+//         {
+//             starAudioSource.Play();
+//         }
+//         else
+//         {
+//             Debug.LogError("Star Audio Source is not set.");
+//         }
+//     }
+// }
 using UnityEngine;
 
 public class StarManagement : MonoBehaviour
@@ -6,13 +48,7 @@ public class StarManagement : MonoBehaviour
 
     private void Start()
     {
-        // Get the AudioSource component
-        starAudioSource = GetComponent<AudioSource>();
-        // Start playing the music as soon as the star is instantiated
-        if (starAudioSource != null)
-        {
-            starAudioSource.Play();
-        }
+        PlayStarSound();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -26,12 +62,36 @@ public class StarManagement : MonoBehaviour
             }
 
             // Stop the music and destroy the star
-            if (starAudioSource != null)
-            {
-                starAudioSource.Stop();
-            }
+            // if (starAudioSource != null)
+            // {
+            //     starAudioSource.Stop();
+            //     Destroy(starAudioSource.gameObject, 0.1f); // Destroy the GameObject containing the audio source
+            // }
+            AudioManager.instance.Stop("StarSound");
             Destroy(gameObject);
-            
         }
     }
+
+    private void PlayStarSound()
+    {
+        AudioManager.instance.Play("StarSound");
+    }
+
+    // Add methods to pause and resume star audio sources
+public void PauseAudio()
+{
+    if (starAudioSource != null && starAudioSource.isPlaying)
+    {
+        starAudioSource.Pause();
+    }
+}
+
+public void ResumeAudio()
+{
+    if (starAudioSource != null && !starAudioSource.isPlaying)
+    {
+        starAudioSource.UnPause();
+    }
+}
+
 }

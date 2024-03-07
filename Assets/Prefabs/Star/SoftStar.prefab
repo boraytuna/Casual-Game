@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5ae010fa32b3e4e7ba62bd641adf82a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starAudioSource: {fileID: 2346588044843225706}
 --- !u!82 &2346588044843225706
 AudioSource:
   m_ObjectHideFlags: 0
@@ -162,7 +163,7 @@ AudioSource:
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 122
+  Priority: 50
   DopplerLevel: 1
   MinDistance: 1
   MaxDistance: 500
