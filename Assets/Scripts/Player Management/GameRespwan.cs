@@ -67,6 +67,7 @@ public class GameRespawn : MonoBehaviour
 
     public void RespawnPlayer()
     {
+        AudioManager.instance.Stop("StarSound");
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

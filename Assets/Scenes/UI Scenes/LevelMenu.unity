@@ -1103,8 +1103,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4294967295
-  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+    rgba: 4294931712
+  m_fontColor: {r: 0, g: 0.45882353, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -2268,6 +2268,7 @@ MonoBehaviour:
     volume: 0.247
     pitch: 1
     loop: 1
+    playOnAwake: 0
     source: {fileID: 0}
 --- !u!4 &4192003517024756558
 Transform:

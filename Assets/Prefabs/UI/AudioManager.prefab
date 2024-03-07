@@ -47,7 +47,15 @@ MonoBehaviour:
   sounds:
   - name: Theme
     clip: {fileID: 8300000, guid: 17f7070ef82e942a686f516b73a64915, type: 3}
-    volume: 0.247
+    volume: 0.144
     pitch: 1
     loop: 1
+    playOnAwake: 0
+    source: {fileID: 0}
+  - name: StarSound
+    clip: {fileID: 8300000, guid: 4641ed8a717cd419dbb556daa654be81, type: 3}
+    volume: 0.144
+    pitch: 1
+    loop: 1
+    playOnAwake: 0
     source: {fileID: 0}
