@@ -8,16 +8,16 @@ public class GameManager : MonoBehaviour
 {
     public GameObject completeLevelUI;
     public PlayerStats playerStats;
+    public TextMeshProUGUI totalStarsTextUI;
     public void CompleteLevel()
     {
         completeLevelUI.SetActive(true);
         UpdateLevelCompleteUI();
+        //UpdateTotalStarsDisplay(); 
     }
 
     private void UpdateLevelCompleteUI()
     {
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
         
         if(playerStats != null)
         {
@@ -27,6 +27,24 @@ public class GameManager : MonoBehaviour
             {
                 starsText.text = "Stars Collected: " + playerStats.collectedStarPoints.ToString();
             }
+        }
+    }
+
+    private void UpdateTotalStarsDisplay()
+    {
+        TextMeshProUGUI totalStarsText = completeLevelUI.GetComponentInChildren<TextMeshProUGUI>(true); 
+        if(totalStarsText != null)
+        {
+            totalStarsText.text = "Total Stars Collected: " + PlayerStats.totalCollectedStars.ToString();
+        }
+    }
+
+    public void UpdateTotalStars(int totalStars)
+    {
+        // Update the UI or perform any other actions with the total stars count
+        if (totalStarsTextUI != null)
+        {
+            totalStarsTextUI.text = "Total Stars Collected: " + totalStars.ToString();
         }
     }
 }

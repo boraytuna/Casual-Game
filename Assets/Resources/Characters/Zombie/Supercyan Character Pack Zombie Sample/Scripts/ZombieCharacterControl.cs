@@ -126,7 +126,7 @@ public class ZombieCharacterControl : MonoBehaviour
         if (zombieAudioSource != null)
         {
             zombieAudioSource.Stop();
-            Destroy(zombieAudioSource.gameObject, 0.1f); // Destroy the GameObject containing the audio source
+            Destroy(zombieAudioSource.gameObject, 5f); // Destroy the GameObject containing the audio source
         }
         this.enabled = false;
         GetComponent<Collider>().enabled = false;

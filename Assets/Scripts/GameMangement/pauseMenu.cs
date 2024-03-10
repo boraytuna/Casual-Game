@@ -105,6 +105,19 @@ public class pauseMenu : MonoBehaviour
         Time.timeScale = 1f;
     }
 
+    public void Levels()
+    {
+        pauseMenuUI.SetActive(false);
+        Time.timeScale = 1f;
+        GameisPaused = false;
+        if (automaticGunScript != null)
+        {
+            automaticGunScript.enabled = true; // Enable shooting
+        }
+        SceneManager.LoadScene(1);
+        Time.timeScale = 1f;    
+    }
+
     public void quitGame()
     {
         Debug.Log("Quit the game");

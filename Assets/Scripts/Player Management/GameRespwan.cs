@@ -12,7 +12,7 @@ public class GameRespawn : MonoBehaviour
     public PlayerCombat playerCombat; // Reference to the player's combat script
     public AutomaticGunScript gunScript; // Reference to the AutomaticGunScript
     public LevelTimer levelTimer;
-    private bool isPlayerDead = false;
+    public bool isPlayerDead = false;
 
     void Start()
     {

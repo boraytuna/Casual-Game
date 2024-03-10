@@ -13,6 +13,7 @@ public class PlayerCombat : MonoBehaviour
     public float attackRate = 2f; // Rate of fire
     private float lastAttackTime = 3f; // Time since last shot
     public AudioSource playerGettingHurt;
+    public bool playerisDead = false;
 
     void Awake()
     {
@@ -53,6 +54,7 @@ public class PlayerCombat : MonoBehaviour
         {
             Die();
             GetComponent<GameRespawn>().enabled = true;
+            playerisDead = true;
         }
     }
 
