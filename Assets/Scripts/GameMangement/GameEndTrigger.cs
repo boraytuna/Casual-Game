@@ -11,16 +11,25 @@ public class GameEndTrigger : MonoBehaviour
     {
         if(other.CompareTag("Player"))
         {
-            Debug.Log("Game Ended");
             gameComplete.CompleteGame();
             playerStats.FinishLevel();
+            AudioManager.instance.Stop("StarSound");
+            zombieAudioStop();
         }  
     }
 
     public void UpdateTotalStars(int totalStars)
     {
-        // Assuming GameManager has a method to handle the total stars.
-        // You might need to adjust this line to match your actual method signature.
         gameManager.UpdateTotalStars(totalStars);
     }
+
+    public void zombieAudioStop()
+    {
+        ZombieCharacterControl[] zombies = FindObjectsOfType<ZombieCharacterControl>();
+        foreach (ZombieCharacterControl zombie in zombies)
+        {
+            zombie.StopZombieSound();
+        }
+    }
+
 }

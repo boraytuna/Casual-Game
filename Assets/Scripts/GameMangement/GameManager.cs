@@ -9,11 +9,21 @@ public class GameManager : MonoBehaviour
     public GameObject completeLevelUI;
     public PlayerStats playerStats;
     public TextMeshProUGUI totalStarsTextUI;
+    public ZombieCharacterControl zombieCharacterControl;
     public void CompleteLevel()
     {
         completeLevelUI.SetActive(true);
         UpdateLevelCompleteUI();
-        //UpdateTotalStarsDisplay(); 
+        //UpdateTotalStarsDisplay();
+        DisableZombie();
+    }
+
+    public void DisableZombie()
+    {
+        if(zombieCharacterControl != null)
+        {
+            zombieCharacterControl.enabled = false;
+        }
     }
 
     private void UpdateLevelCompleteUI()

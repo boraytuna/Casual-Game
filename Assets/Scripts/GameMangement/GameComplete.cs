@@ -11,6 +11,8 @@ public class GameComplete : MonoBehaviour
     public static bool GameisPaused = false;
     public static bool GameisComplete = false;
     public AutomaticGunScript automaticGunScript; 
+    public ZombieCharacterControl zombieCharacterControl;
+
 
     void Update()
     {
@@ -32,6 +34,15 @@ public class GameComplete : MonoBehaviour
         GameisComplete = true;
         UpdateGameEndedUI();
         completeGameUI.SetActive(true); 
+        DisableZombie();
+    }
+
+    public void DisableZombie()
+    {
+        if(zombieCharacterControl != null)
+        {
+            zombieCharacterControl.enabled = false;
+        }
     }
 
     public void UpdateGameEndedUI()

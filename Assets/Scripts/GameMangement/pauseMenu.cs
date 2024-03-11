@@ -7,6 +7,7 @@ public class pauseMenu : MonoBehaviour
     public GameObject pauseMenuUI;
     public AutomaticGunScript automaticGunScript; 
     public AudioSource[] allAudioSources;
+    public GameObject playerUI;
 
     void Start()
     {
@@ -36,6 +37,7 @@ public class pauseMenu : MonoBehaviour
 
         Cursor.visible = true;
         Cursor.lockState = CursorLockMode.None;
+        playerUI.SetActive(false);
 
         // Pause all audio sources
         PauseAllAudioSources(); 
@@ -49,6 +51,7 @@ public class pauseMenu : MonoBehaviour
 
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
+        playerUI.SetActive(true);
 
         // Resume all audio sources
         ResumeAllAudioSources();
@@ -80,7 +83,9 @@ public class pauseMenu : MonoBehaviour
 
     public void restartLevel()
     {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         pauseMenuUI.SetActive(false);
+        playerUI.SetActive(true);
         Time.timeScale = 1f;
         GameisPaused = false;
         if (automaticGunScript != null)
@@ -89,32 +94,33 @@ public class pauseMenu : MonoBehaviour
         }
         AudioManager.instance.Stop("StarSound");
         AudioManager.instance.Resume("Theme");
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void LoadMenu()
     {
+        SceneManager.LoadScene(0);
         pauseMenuUI.SetActive(false);
+        playerUI.SetActive(true);
         Time.timeScale = 1f;
         GameisPaused = false;
         if (automaticGunScript != null)
         {
             automaticGunScript.enabled = true; // Enable shooting
         }
-        SceneManager.LoadScene(0);
         Time.timeScale = 1f;
     }
 
     public void Levels()
     {
+        SceneManager.LoadScene(1);
         pauseMenuUI.SetActive(false);
+        playerUI.SetActive(true);
         Time.timeScale = 1f;
         GameisPaused = false;
         if (automaticGunScript != null)
         {
             automaticGunScript.enabled = true; // Enable shooting
         }
-        SceneManager.LoadScene(1);
         Time.timeScale = 1f;    
     }
 

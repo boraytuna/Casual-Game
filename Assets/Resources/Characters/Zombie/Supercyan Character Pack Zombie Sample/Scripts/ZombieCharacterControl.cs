@@ -16,6 +16,8 @@ public class ZombieCharacterControl : MonoBehaviour
     private PlayerCombat playerCombatScript;
     public AudioSource zombieAudioSource; 
     public GameObject starPrefab;
+    public bool canPlaySound = true;
+
 
 
     void Awake()
@@ -46,7 +48,14 @@ public class ZombieCharacterControl : MonoBehaviour
             {
                 zombieAudioSource.Stop();
             }
+            if(canPlaySound == false)
+            {
+                zombieAudioSource.Stop();
+            }
 
+        }else if(!IsPlayerOnSameGround())
+        {
+            zombieAudioSource.Stop();
         }
 
         float distance = Vector3.Distance(transform.position, playerTransform.position);
@@ -75,7 +84,7 @@ public class ZombieCharacterControl : MonoBehaviour
 
     }
 
-    bool IsPlayerOnSameGround()
+    public bool IsPlayerOnSameGround()
     {
         return playerMovementScript.currentGround == this.currentGround;
     }
@@ -173,6 +182,16 @@ public class ZombieCharacterControl : MonoBehaviour
             zombieAudioSource.UnPause();
         }
     }
+
+    public void StopZombieSound()
+    {
+        if (zombieAudioSource != null)
+        {
+            zombieAudioSource.Stop();
+        }
+        canPlaySound = false;
+    }
+
 
     void OnDestroy()
     {
