@@ -22,7 +22,7 @@ public class LevelMenu : MonoBehaviour
 
     public void onLevel4(){
         AudioManager.instance.Resume("Theme");
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(5);
     }
     public void onLevel5(){
         AudioManager.instance.Resume("Theme");
