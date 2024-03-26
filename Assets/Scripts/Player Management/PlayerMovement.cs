@@ -79,4 +79,15 @@ public class PlayerMovement : MonoBehaviour
         cameraTransform.localPosition = new Vector3(cameraTransform.localPosition.x, originalCameraHeight, cameraTransform.localPosition.z);
         isCrouching = false;
     }
+
+    public void DisableMovement()
+    {
+        enabled = false; // Disables this PlayerMovement script
+    }
+
+    public void EnableMovement()
+    {
+        enabled = true; // Enables this PlayerMovement script
+    }
+
 }

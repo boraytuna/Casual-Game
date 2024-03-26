@@ -45,4 +45,6 @@ public class MovingGround : MonoBehaviour
             other.transform.parent.SetParent(null);
         }
     }
+
+
 }
