@@ -26,7 +26,7 @@ public class LevelMenu : MonoBehaviour
     }
     public void onLevel5(){
         AudioManager.instance.Resume("Theme");
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(6);
     }
 
     public void goBack(){
