@@ -1,24 +1,20 @@
 using UnityEngine;
 
-public class EndTrigger : MonoBehaviour
+public class LevelEndTrigger : MonoBehaviour
 {
     public GameManager gameManager;
-    public bool levelCompleted = false;
+    private bool levelIsAlreadyEnded = false; // This flag ensures that the end level logic is only called once.
 
-    public void OnTriggerEnter(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !levelIsAlreadyEnded)
         {
             gameManager.CompleteLevel();
-            levelCompleted = true;
-            AudioManager.instance.Stop("StarSound");
+            levelIsAlreadyEnded = true; // Set the flag so it doesn't run again.
+            // Optionally, deactivate the trigger to prevent further collisions.
+            this.gameObject.SetActive(false);
             zombieAudioStop();
-        }  
-    }
-
-    public void UpdateTotalStars(int totalStars)
-    {
-        gameManager.UpdateTotalStars(totalStars);
+        }
     }
 
     public void zombieAudioStop()
@@ -29,6 +25,5 @@ public class EndTrigger : MonoBehaviour
             zombie.StopZombieSound();
         }
     }
-
-
 }
+

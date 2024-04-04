@@ -1,12 +1,12 @@
 using UnityEngine;
 
-public class RollBallForPlayerOnZAxis : MonoBehaviour
+public class RollBallForPlayerOnXAxis : MonoBehaviour
 {
     public GameObject ballPrefab; // Assign this in the Inspector with your ball prefab
     public float minSpawnInterval = 1.0f; // Minimum time between ball spawns
     public float maxSpawnInterval = 3.0f; // Maximum time between ball spawns
     public Transform[] spawnPoints; // An array of points from which balls will be instantiated
-    public Vector3 ballDirection = new Vector3(1, 0, 0); // Direction for the ball to move towards
+    public Vector3 ballDirection = new Vector3(0, 0, 1); // Direction for the ball to move towards
     public float ballForce = 500f; // The force applied to balls
     private bool playerInRange = false; // Flag to check if player is in range
     private float timer; // Timer to track spawn intervals

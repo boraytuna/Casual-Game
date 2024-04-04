@@ -1,29 +1,27 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class GameEndTrigger : MonoBehaviour
 {
-    public GameComplete gameComplete;
     public GameManager gameManager;
-    public PlayerStats playerStats;
-    void OnTriggerEnter (Collider other)
+    public AutomaticGunScript automaticGunScript;
+
+    private void OnTriggerEnter(Collider other)
     {
         if(other.CompareTag("Player"))
         {
-            gameComplete.CompleteGame();
-            playerStats.FinishLevel();
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            gameManager.EndGame();
             AudioManager.instance.Stop("StarSound");
             zombieAudioStop();
+            if(automaticGunScript != null)
+            {
+                automaticGunScript.enabled = false;
+            }
+
         }  
     }
-
-    public void UpdateTotalStars(int totalStars)
-    {
-        gameManager.UpdateTotalStars(totalStars);
-    }
-
-    public void zombieAudioStop()
+        public void zombieAudioStop()
     {
         ZombieCharacterControl[] zombies = FindObjectsOfType<ZombieCharacterControl>();
         foreach (ZombieCharacterControl zombie in zombies)
@@ -31,5 +29,4 @@ public class GameEndTrigger : MonoBehaviour
             zombie.StopZombieSound();
         }
     }
-
 }
