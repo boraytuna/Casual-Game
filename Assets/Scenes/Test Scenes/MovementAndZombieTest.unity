@@ -1723,12 +1723,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 85ec66b004e2540708623c623c27036b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  collectedStarPoints: 0
+  collectedStarsInEachLevel: 0
   noOfStars: {fileID: 5951732231248840360}
-  gameRespawn: {fileID: 521616968}
-  playerCombat: {fileID: 521616963}
-  endTrigger: {fileID: 8725275496344407833}
-  gameEndTrigger: {fileID: 0}
 --- !u!114 &521616968
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5551,9 +5547,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   completeLevelUI: {fileID: 5637907524522116988}
+  completeGameUI: {fileID: 5861851872738348868}
+  starsText: {fileID: 0}
+  totalStarsText: {fileID: 0}
   playerStats: {fileID: 521616967}
-  totalStarsTextUI: {fileID: 2264253013195334594}
-  zombieCharacterControl: {fileID: 1719660653477931168}
 --- !u!4 &3086901728377145585
 Transform:
   m_ObjectHideFlags: 0
@@ -10077,7 +10074,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameManager: {fileID: 3055323400243074107}
-  levelCompleted: 0
 --- !u!114 &8742768852849835598
 MonoBehaviour:
   m_ObjectHideFlags: 0

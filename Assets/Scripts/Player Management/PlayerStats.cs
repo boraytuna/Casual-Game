@@ -48,4 +48,5 @@ public class PlayerStats : MonoBehaviour
         levelFinished = false; // Reset the flag
         UpdateStarCountUI();
     }
+
 }
